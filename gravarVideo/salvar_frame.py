@@ -59,6 +59,7 @@ def gravar_video(cam, tentativas):
             # print(data_formatada)
 
             if count == 1000:
+                print(f"count {count}")
 
                 if os.path.exists(nome_dir):
                     if not os.path.exists(f'./{dir_name}/{nome_dir}/{data_formatada}.png'):
@@ -71,7 +72,6 @@ def gravar_video(cam, tentativas):
                         cv2.imwrite(f'./{dir_name}/{nome_dir}/{data_formatada}.png', frame)
                         print(data_formatada)
 
-                print(f"count {count}")
                 count = 0
                 continue
 
