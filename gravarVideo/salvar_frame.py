@@ -58,7 +58,7 @@ def gravar_video(cam, tentativas):
             nome_dir = f"{dir_name}_{datetime.fromtimestamp(time.time()).strftime('%Y-%d-%m_%H')}"
             # print(data_formatada)
 
-            if count == 1000:
+            if count == 500:
                 print(f"count {count}")
 
                 if os.path.exists(nome_dir):

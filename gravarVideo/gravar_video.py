@@ -17,9 +17,23 @@ câmeras pelotas
 #"rtsp://digifort:digi2010@10.247.220.79:554/cam/realmonitor?channel=1&subtype=0"
 #"http://digifort:digi2010@10.247.220.79:80/cgi-bin/snapshot.cgi?"
 #rtsp://digifort:digi2010@10.247.220.79:554/cam/realmonitor?channel=1&subtype=0
+
+"rtsp://digifort:digi2010@10.247.229.204:554"
+"rtsp://admin:digi2010@10.247.229.204:554"
+
+# #RTSP_URL=rtsp://digifort:digi2010@10.247.221.82:554
+
+# #RTSP_URL=rtsp://ax12813:ims@2024@10.247.168.43:554/Interface/Cameras/Media?Camera=acic02
+# RTSP_URL=rtsp://admin:adminlb2@10.247.146.30:554/cam/realmonitor?channel=1&subtype=0
+# # RTSP_URL=rtsp://digifort:digi2010@10.247.221.176:554
+
+## rtsp://admin:adminlb2@10.247.146.30:554/cam/realmonitor?channel=1&subtype=0 LB2
+
+## RTSP_URL=rtsp://ax12813:ims@2024@10.247.168.43:554/Interface/Cameras/Media?Camera=acic02 API
 """
+
 duracao_gravacao = 30
-camera = "rtsp://digifort:digi2010@10.247.229.204:554"
+camera = "rtsp://digifort:digi2010@10.247.220.138:554"
 tentativas = 32256
 
 def gravar_video(cam, tentativas):
@@ -40,9 +54,9 @@ def gravar_video(cam, tentativas):
                 ret, frame = cap.read()
                 if ret:
                     # Convertendo o frame para escala de cores cinza
-                    color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    # color_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-                    frames.append(color_frame)  # Adiciona o frame convertido à lista
+                    frames.append(frame)  # Adiciona o frame convertido à lista
                     # Exibe o frame capturado
                     cv2.imshow('Streaming', frame)
                     # Verifica se a tecla 'q' foi pressionada para interromper a gravação
@@ -61,8 +75,15 @@ def gravar_video(cam, tentativas):
                         # Obter o timestamp atual e formatá-lo em uma representação de data e hora
                         data_formatada = datetime.fromtimestamp(time.time()).strftime('%Y-%d-%m_%H.%M.%S')
                         print(data_formatada)
-                        clip = ImageSequenceClip(frames, fps=24)
-                        clip.write_videofile(f'./carvao_{data_formatada}.mp4')
+                        fps = cap.get(cv2.CAP_PROP_FPS)
+                        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+                        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                        output = cv2.VideoWriter(f'./emissoes_{data_formatada}.mp4', -1, fps, (width, height))
+                        for frame in frames:
+                            output.write(frame)
+
+                        # clip = ImageSequenceClip(frames, fps=24)
+                        # clip.write_videofile(f'./carvao_{data_formatada}.mp4')
                         frames.clear()
                         continue
 
