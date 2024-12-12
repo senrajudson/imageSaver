@@ -29,11 +29,11 @@ câmeras pelotas
 
 ## rtsp://admin:adminlb2@10.247.146.30:554/cam/realmonitor?channel=1&subtype=0 LB2
 
-## RTSP_URL=rtsp://ax12813:ims@2024@10.247.168.43:554/Interface/Cameras/Media?Camera=acic02 API
+## API "rtsp://ax12813:ims@2024@10.247.200.55/Interface/Cameras/Media?Camera=ACIC02"
 """
 
 duracao_gravacao = 30
-camera = "rtsp://digifort:digi2010@10.247.220.138:554"
+camera = "rtsp://ax12813:ims@2024@10.247.200.55/Interface/Cameras/Media?Camera=ACIC02"
 tentativas = 32256
 
 def gravar_video(cam, tentativas):

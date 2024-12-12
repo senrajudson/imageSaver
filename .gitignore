@@ -1,4 +1,12 @@
+*.png
+*.jpg
+*.mp4
+*.avi
 projeto*
 salvar_frame2.py
 tem*
 parece*
+emiss*
+vid*
+nao*
+dat*
